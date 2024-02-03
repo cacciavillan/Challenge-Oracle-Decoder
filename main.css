@@ -103,11 +103,6 @@ header img {
 
 }
 
-.standBy {
-    z-index: 1;
-}
-
-
 .output {
     background-color: white;
     border: 1px solid white;
@@ -334,7 +329,9 @@ header img {
     .output .standBy { 
         background-color: white;
         background-image: url(imagenes/Muñeco.jpg);
-        background-size: cover;
+        background-size:contain;
+        background-repeat: no-repeat;
+        background-position-x: center;
         border-radius: 40px;
         width: 100%;
         text-align: center; 
@@ -357,7 +354,6 @@ header img {
         line-height: 28.8px;
         margin-bottom: 2%;
         text-align: center;
-        transform: translate(0, -70px);
     }
     
     .message-2 {
@@ -366,7 +362,6 @@ header img {
         margin-top: 2%;
         text-align: center;
         padding: 5px;
-        transform: translate(0, -70px);
     }
 
     .output .active {
