@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Programa para encriptar</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="resize.js"></script>
+        <script src="app.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+        <link href="reset.css" rel="Stylesheet" />
+        <link href="main.css" rel="Stylesheet" />
+    </head>
+    <body>
+        <header>
+            <img src="imagenes/header_icon.png" alt="icono header" />
+        </header>
+        <div class="container">
+            <div class="input">
+                <textarea class="input-text" placeholder="Ingrese el texto aquí" id="textarea1" oninput="autoResize(this)"></textarea>
+                <div class="buttons">
+                    <button class="button" id="encriptar" onclick="encryptionSequence()">Encriptar</button>
+                    <button class="button" id="desencriptar" onclick="decryptSequence()">Desencriptar</button>
+                </div>
+            </div>
+            <div class="output">
+                <div class="standBy">
+                    <p class="message" id="outMessage">Ningún mensaje fue encontrado</p>
+                    <p class="message-2">Ingresa el texto que desees encriptar o desencriptar.</p>
+                </div>
+                <div class="active">
+                    <textarea class="outText" id="outText" oninput="autoResize(this)"disabled></textarea>
+                    <button class="button" id="copiar" value="Hola Mundo!">Copiar</button>
+                </div>
+            </div>
+        </div>
+    </body>
+    <footer>
+    </footer>
+    </html>
+
+
+
+   

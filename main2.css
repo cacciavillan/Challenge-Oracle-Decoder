@@ -1,0 +1,208 @@
+* {
+    padding:0px;
+    margin:0px;
+    font-family: "Inter";
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    min-height: 100%;
+    background: linear-gradient(to bottom, white 65%, #f3f5fc 76%, #eff1fa 80%, #e9ecf8 86%);
+    font-family: 'Inter';
+}
+
+header {
+    width: 100%;
+    height: 10.29vh;
+    position: static;
+    display: flex;
+    align-items: center;
+}
+
+header img {
+    position:relative;
+    height: 50%;
+    width: 8.5;
+    padding: 0 16px;
+}
+
+.container {
+    height: auto;
+    min-height: 89vh;
+    width: 100%;
+    padding: 0px 4.2%;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.input {
+    height: 65vh;
+    width: 100%;
+    min-width: 250px;
+    position: static;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    flex:1;
+}
+
+.input-text {
+    border: none;
+    color: #0A3871;
+    font-weight: 400;
+    font-size: 24px;
+    height: auto;
+    min-height: 200px;
+    width:100%;
+    min-width: 250px;
+    margin-bottom: 4%;
+    margin-top: calc(7% - 0.1 * (100vw - 600px));
+    line-height: 48px;
+    overflow-y: auto;
+}
+
+.input-text::placeholder {
+    color: #0A3871;
+}
+
+.buttons {
+    
+    align-items: center;
+    height: 30%;
+    min-height: 30%;
+    width: 100%;
+   
+
+    display: flex;
+    flex-flow:column;
+    flex-wrap: wrap;
+}
+
+.input button {
+    color:white;
+    border: none;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: center;
+    width: 100%;
+    height: 10vh;
+}
+
+.input #encriptar {
+    background-color: #0A3871;
+    margin-bottom: calc(5.5% - 0.05 * (100vw - 375px));
+    height: 5.89vh;
+}
+
+.input #desencriptar {
+    background-color: white;
+    border: 1px solid #0A3871;
+    color: #0A3871;
+    height: 5.89vh;
+}
+
+/* hasta acá tengo 650 pixeles. */
+
+.output {
+    background-color: white;
+    height: 100px;
+    width: 90%;
+    min-width: 250px;
+    position: relative;
+
+    margin: calc(10% - 0.1 * (100vw - 375px));
+    border-radius: 30px;
+
+    display: flex;
+    flex-flow: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+}
+
+.paragraph {
+    background-color: white;
+    position: absolute;
+    display: flex;
+    flex-flow: column; 
+    visibility: visible;
+    position: relative; 
+}
+
+.message, .message-2 {
+    width: 100%;
+    position: relative;
+}
+
+.message {
+    flex:1;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 28.8px;
+    margin-bottom: 2%;
+    text-align: center;
+}
+
+.message-2 {
+    flex:1;
+    font-size: max(16px, 2vw);
+    line-height: 28.8px;
+    margin-top: 2%;
+    text-align: center;
+    
+}
+
+.opt-buttons {
+    height: 100%;
+    width: 100%;
+
+    display:flex;
+    flex-flow: column;
+    align-items: center;
+    visibility: hidden;
+
+}
+
+.output-text {
+    border: none;
+    color: #0A3871;
+    font-weight: 400;
+    font-size: 20px;
+    height: auto;
+    min-height: 25vh;
+    max-height: 90vh;
+    width:100%;
+    min-width: 250px;
+    margin-bottom: 4%;
+    margin-top: calc(7% - 0.1 * (100vw - 600px));
+    line-height: 48px;
+    overflow-y: auto;
+    overflow: hidden;
+}
+
+.opt-buttons #copiar {
+    color: #0A3871;
+    border: none;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: center;
+    width: 100%;
+    height: 5vh;
+}

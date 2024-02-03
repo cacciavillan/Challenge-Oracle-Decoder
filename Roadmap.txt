@@ -1,0 +1,46 @@
+**Preprocesamiento entrada:**
+- Normalizar a minúsculas con .toLowerCase()
+- Remover acentos con expresiones regulares
+- Conservar las ñ
+
+**Generar checksum (SHA-1)**
+- hash = crypto.SHA1(texto original)
+
+**Dividir texto en palabras (array)** 
+- texto.split(' ')
+
+**Encriptar palabra por palabra**
+- Usar .map() para sustituir vocales de cada palabra
+- Unir palabras modificadas con .join(' ')   
+
+**Generar output final**
+- Concatenar checksum + salto de línea + texto encriptado
+
+**Desencriptar:**
+- Extraer y verificar checksum
+- Mismo proceso inverso sustituyendo vocales
+
+Optimizaciones:
+- Funciones independientes por paso
+- Manejo de errores
+- Pruebas unitarias 
+
+
+
+LOGICA:
+
+Funcion padre {
+    posicionesEnie: []
+    textoNormalizado: []
+
+    checksum:(textoNormalizado)
+    encriptado:(textoNormalizado)
+
+    Return checksum+posisionesenie|encriptado    
+}
+
+La letra "e" es convertida para "enter"
+La letra "i" es convertida para "imes"
+La letra "a" es convertida para "ai"
+La letra "o" es convertida para "ober"
+La letra "u" es convertida para "ufat"
