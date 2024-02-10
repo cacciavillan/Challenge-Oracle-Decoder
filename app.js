@@ -200,7 +200,7 @@ function corruptedMessage(state) {
         message.style.color = 'red';
     }
     if (outMessage) {
-        outMessage.innerText = state === 'corrupted' ? "Mensaje Corrupto" : "Ningún mensaje fué encontrado";
+        outMessage.innerText = state === 'corrupted' ? "Mensaje Corrupto" : "Ningún mensaje fue encontrado";
     }
     if (standBy) {
         standBy.style.visibility = 'visible';

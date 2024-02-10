@@ -11,7 +11,7 @@ function autoResize(textarea) {
 
 document.addEventListener('DOMContentLoaded', function () {
     let textarea = document.getElementById('textarea1');
-    let maxLength = 400; // Establece el límite máximo de caracteres según tus necesidades
+    let maxLength = 3000; // Establece el límite máximo de caracteres según tus necesidades
 
     textarea1.addEventListener('input', function () {
         var inputText = textarea1.value;
