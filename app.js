@@ -1,6 +1,18 @@
+let state
+let copiar
+
+function autoResize(textarea) {
+    textarea.style.height = 'auto'; // Reinicia la altura a auto para recalcularla a la altura actual
+    textarea.style.height = textarea.scrollHeight + 'px'; // Actualiza la altura
+
+    // Ajusta la altura del body si es necesario
+    document.body.style.height = document.documentElement.scrollHeight + 'px';
+
+}
+
 // ENCRIPTADO
 
-
+// Normalizamos el input string del usuario
 function normalizeEntry(inputString) {
 
     let normalizedString = inputString
@@ -15,6 +27,7 @@ function normalizeEntry(inputString) {
   
 }
 
+// Contamos la posición de las "ñ" para volverlas a colocar al desencriptar
 function eniesCount(text) {
     let inputText = text.toLowerCase();
     let positions = [];
@@ -26,6 +39,7 @@ function eniesCount(text) {
     return positions;
 }
 
+// Calculamos un checksum del input
 function sumAscii(string) {
     let sum = 0;
     for (let i = 0; i < string.length; i++) {
@@ -34,6 +48,7 @@ function sumAscii(string) {
     return sum
 }
 
+// Encriptado del texto
 function encrypted(str) {
     // Declaro la cont wordsArray y le asigno el resultado de split sobre str
     const wordsArray=str.split("");
@@ -61,36 +76,42 @@ function encrypted(str) {
     return resultString;
   }
 
-let copiar
-
+// Secuencia de encriptado
 function encryptionSequence() {
-    console.log('function called')
+    // Está encapsulado en un try/catch para manejar los errores que puede generar la función inputString cuando no se ingresa un valor.
     try {
         let inputString = document.getElementById('textarea1').value;
-        console.log(inputString)
         
         if (inputString === "") {
             corruptedMessage('empty')
             throw new Error('No se ha ingresado ningun string')
         }
         
+        // Normaliza el texto quitando mayusculas y los acéntos.
         let normalizedText = normalizeEntry(inputString);
-        console.log(normalizedText);
 
+        // Crea un array con la posición de las "ñ" para volver a colocarlas al desencriptar.
         let eniesPosition = eniesCount(inputString);
-        console.log(eniesPosition)
 
+        // Crea un checksum para aumentar la seguridad del mensaje.
         let sumaAscii = sumAscii(normalizedText);
-        console.log(sumaAscii)
 
+        // Encripta el texto normalizado
         let encryptedText = encrypted(normalizedText);
-        console.log(encryptedText)
-
+        
+        // Creamos la variable "copiar" para que el resultado de la función esté disponible para el boton "copiar"
         copiar = `Checksum=${sumaAscii}|${eniesPosition}|Mensaje Encriptado --- ${encryptedText} --- FIN MENSAJE ENCRIPTADO`;
 
+        // Actualizamos el textarea de salida solo con el texto encriptado, sin el checksum y la posición de las "ñ".
         outText.value = encryptedText;
+
+        // Mostramos el textarea de salida, ocultamos los párrafos y actualizamos la altura del textarea
         setActive();
         autoResize(outText);
+        state = "encrypt";
+        let textarea = document.getElementById('textarea1');
+        textarea.value = '';
+        textarea.style.height = '';
 
         return copiar;
 
@@ -102,8 +123,9 @@ function encryptionSequence() {
 }
 // DESENCRIPTADO
 
+// Desencripta el input después de haber sido limpiado (Sin caracteres especiales)
 function decrypt(str) {
-    // Declaro la cont wordsArray y le asigno el resultado de split sobre str
+    // Declaro la const wordsArray y le asigno el resultado de split sobre el string.
     const wordsArray = str.split(" ");    
 
     const encryptedArray = wordsArray.map(element => {
@@ -135,23 +157,16 @@ function decrypt(str) {
     return resultString;
 }
 
+// Calcula un checksum
 function checksum(string) {
     let suma = 0;
     for (let i = 0; i < string.length; i++) {
         suma += string.charCodeAt(i);
     }
-    console.log(suma)
     return suma
 }
 
-
-/* function extractChecksum(string) {
-    
-    let resultado = string.match(/@@(.*?)@@/);
-
-    return resultado[1]
-}*/
-
+// Restaura las "ñ"
 function enieRestore(string, indexs) {
     const newCharacter = "ñ"; // caracter que va a reemplazar el caracter especificado en index
     if (indexs === undefined) {
@@ -170,8 +185,10 @@ function enieRestore(string, indexs) {
     }
 }
 
+// Normalizamos el texto a lowercase y sin acentos.
 function cleaningString(string) {
 
+    // Nos aseguramos de que el string tenga datos válidos
     let cleanTextMatch = string.match(/--- (.*?) ---/);
     let checksumMatch = string.match(/Checksum=(.*?)\|/);
     let eniesMatch = string.match(/\|(.+)\|/);
@@ -179,18 +196,20 @@ function cleaningString(string) {
     if (!cleanTextMatch || !checksumMatch /*|| !eniesMatch*/) {
         // Manejar el caso en el que no se encuentran coincidencias
         return null;
-    }
+    };
 
+    // Extraemos el texto normalizado, el checksum y el array con las posiciones de las "ñ"
     let cleanText = string.match(/--- (.*?) ---/);
     let checksum = string.match(/Checksum=(.*?)\|/);
     let enies = string.match(/\|(.+)\|/)?.[1]?.split(",").map(Number);
 
     return {cleanText: cleanText[1], checksum: checksum[1], enies
-    }
+    };
 }
 
+
+// Si el input no es el esperado muestra mensajes de alerta.
 function corruptedMessage(state) {
-    console.log(state)
     let message = document.querySelector('.message');
     let outMessage = document.getElementById('outMessage');
     let standBy = document.querySelector('.standBy');
@@ -211,12 +230,12 @@ function corruptedMessage(state) {
 
 }
 
+// Secuencia de desencriptación.
 function decryptSequence() {
     try {
         let string = document.getElementById('textarea1').value;
 
         if (string === "") {
-            console.log(string)
             corruptedMessage('empty');
             throw new Error('Cadena de texto vacía');
         }
@@ -247,9 +266,15 @@ function decryptSequence() {
         // Volvemos a colocar las ñ, si las hubiese
         let decryptedCleanString = enieRestore(decryptedString, cleanedText.enies);
 
+        copiar = decryptedCleanString
+
         outText.value = decryptedCleanString;
         setActive()
         autoResize(outText);
+        state = "decrypt";
+        let textarea = document.getElementById('textarea1');
+        textarea.value = '';
+        textarea.style.height = '';
 
         return decryptedCleanString;
     } catch (error) {
@@ -258,8 +283,8 @@ function decryptSequence() {
     }
 }
 
+// Oculta los parrafos y muestra el textarea cuando hay un output
 function setActive() {
-    console.log('setActive Called');
     let standBy = document.querySelector('.standBy');
     let active = document.querySelector('.active');
 
@@ -272,6 +297,7 @@ function setActive() {
 
 }
 
+// Función copiar para el boton.
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('copiar').addEventListener('click', function() {
 
@@ -291,7 +317,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Elimina el elemento temporal del DOM
         document.body.removeChild(tempInput);
-
+        
+        if (state == "encrypt") {
         alert('Texto copiado al portapapeles =>\n' + copiar + '\n\nPARA DESENCRIPTAR PEGAR EL TEXTO COPLETO');
+        } else {
+            alert('Texto copiado al portapapeles =>\n' + copiar)
+        }
     });
 });
